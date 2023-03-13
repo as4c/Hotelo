@@ -6,6 +6,7 @@ Automat==22.10.0
 autopep8==2.0.2
 cffi==1.15.1
 Django==4.1.7
+mysqlclient
 django-cors-headers==3.14.0
 hyperlink==21.0.0
 idna==3.4
