@@ -1,0 +1,21 @@
+# Ignore database files
+*.db
+*.sqlite3
+*.json
+
+# Ignore static files
+
+
+# Ignore media files
+media/
+public/
+
+# Ignore secret key file
+secret_key.txt
+
+# Ignore configuration files for development environment
+*.pyc
+*.pyo
+*.env
+.DS_Store
+*.bashrc
