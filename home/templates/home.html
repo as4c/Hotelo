@@ -84,8 +84,8 @@
                                 <label class="" for="exampleFormControlSelect1">Sort by</label>
                                 <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
                                     <option value="">Recommended</option>
-                                    <option {% if sort_by = 'ASC' %} selected {% endif %} value="ASC">Lowest to Highest Price</option>
-                                    <option {% if sort_by = 'DSC' %} selected {% endif %} value="DSC">Highest to Lowest Price</option>
+                                    <option {% if sort_by == 'ASC' %} selected {% endif %} value="ASC">Lowest to Highest Price</option>
+                                    <option {% if sort_by == 'DSC' %} selected {% endif %} value="DSC">Highest to Lowest Price</option>
                                 </select>
                             </div>
                         </div>
