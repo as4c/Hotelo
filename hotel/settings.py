@@ -166,11 +166,11 @@ if DEBUG:
 
 
 
-BACKEND_DOMAIN='http://127.0.0.1:8000'
-PAYMENT_SUCCESS_URL='http://127.0.0.1:8000/payment/success/'
-PAYMENT_CANCEL_URL='http://127.0.0.1:8000/payment/cancel/'
+BACKEND_DOMAIN=os.getenv('BACKEND_DOMAIN')
+PAYMENT_SUCCESS_URL=os.getenv('PAYMENT_SUCCESS_URL')
+PAYMENT_CANCEL_URL=os.getenv('PAYMENT_CANCEL_URL')
 
-STRIPE_WEBHOOK_SECRET="whsec_2b90b0ec5cd124f7463f570dabffacf456a1c447558faf2b79c4a03fcf3ed3ad"
+STRIPE_WEBHOOK_SECRET=os.getenv('STRIPE_WEBHOOK_SECRET')
 
 USE_DJANGO_JQUERY = True
 JQUERY_URL = False
@@ -189,6 +189,6 @@ SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-LOGIN_REDIRECT_URL = '/login/' 
+LOGIN_REDIRECT_URL = '/signin/' 
  
 
