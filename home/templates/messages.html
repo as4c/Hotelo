@@ -1,7 +1,21 @@
 {% if messages %}
-{% for message in messages %}
-<div class="alert alert-{{ message.tags }}" role="alert">
-    {{ message }}
+  <div class="messages">
+    {% for message in messages %}
+      <div class="message {{ message.tags }} text-danger">
+        {{ message }}
+      </div>
+    {% endfor %}
+  
   </div>
-  {% endfor %}
-  {% endif %}
+  <script>
+    {% comment %} {% for message in messages %}
+      alert('{{ message }}');
+    {% endfor %} {% endcomment %}
+    // Automatically remove messages after 2 seconds
+    setTimeout(function() {
+      var messages = document.querySelector('.messages');
+      messages.parentNode.removeChild(messages);
+    }, 3000);
+  </script>
+
+{% endif %}

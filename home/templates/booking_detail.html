@@ -1,0 +1,58 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div
+  class="container  justify-content-center pt-5 container align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded">
+  <h2 class="text-secondary">Booking Detail</h2>
+  <hr>
+  <figure class="">
+    <figcaption class="blockquote text-danger">
+      *Please Check following information<cite title="Source Title"> Carefully</cite>
+    </figcaption>
+  </figure>
+  <div class="row">
+    <div class="col-4 ">
+      <h3 class="text-secondary">Hotel Detail </h3>
+      <hr>
+      <h5 class="text-secondary">Hotel Name: {{ booking.hotel.hotel_name }}</h5>
+      <p>Check In: {{ booking.start_date }}</p>
+      <p>Check Out: {{ booking.end_date }}</p>
+      <p>Booking Type: {{ booking.booking_type }}</p>
+      <p>Person Details: {{booking.customer_desc}}</p>
+      <p>Room : {{booking.room_type}}</p>
+      <p>Total Booked Rooms : {{ booking.no_of_room }}</p>
+      <p>Allotted Room Numbers: {{ booking.room_number }}</p>
+      <h4 class="text-secondary">Total Amount: {{booking.amount}} </h4>
+      <div class="container pt-2">
+        <form action="{% url 'payment:checkout-session' uid %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-dark">Proceed to Pay</button>
+        </form>
+  
+      </div>
+    </div>
+    <div class="col-4">
+      <h3 class="text-secondary"> Customer Detail  </h3>
+      <hr>
+      <h4 class="text-secondary">Name: {{booking.user.username}}</h4>
+      <h5 class="text-secondary">Email: {{booking.user.email}}</h5>
+      <h5 class="text-secondary">Phone: 987610</h5>
+    </div>
+    <div class="col-4">
+      <div class="container text-center ">        
+        <div class="row">
+            {% for image in booking.hotel.images.all|slice:":4" %}
+            <div class="col-6">
+                <div class="gallery_img">
+                    <figure><img src="/media/{{image.images}}" alt="#" /></figure>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

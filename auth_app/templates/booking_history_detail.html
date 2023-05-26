@@ -1,0 +1,49 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div
+  class="container  justify-content-center pt-5 container align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded">
+  <h2 class="text-secondary">Your Booking Detail</h2>
+  <hr>
+  {% for booking in booking %}
+  <div class="row p-2">
+    
+    <div class="col-4">
+      <h3 class="text-secondary">Hotel Detail </h3>
+      <hr>
+      <h5 class="text-secondary">Hotel Name: {{ booking.booking_data.hotel }}</h5>
+      <p>Check In Date: {{ booking.booking_data.start_date }}</p>
+      <p>Check Out Date: {{ booking.booking_data.end_date }}</p>
+      <p>Booking Status: {{ booking.booking_status }}</p>
+      <p>Person Details: {{booking.booking_data.customer_desc}}</p>
+      <p>Room : {{booking.booking_data.room_type}}</p>
+      <p>Total Booked Rooms : {{ booking.booking_data.total_room }}</p>
+      <p>Allotted Room Numbers: {{ booking.booking_data.alloted_rooms }}</p>
+      <p class="text-secondary">Transaction Id: {{booking.transaction_id}} </p>
+      <h4 class="text-secondary">Total Amount: {{booking.amount}} </h4>
+    </div>
+    <div class="col-4">
+      <h3 class="text-secondary"> Customer Detail  </h3>
+      <hr>
+      <h4 class="text-secondary">Name: {{user.username}}</h4>
+      <h5 class="text-secondary">Email: {{user.email}}</h5>
+      <h5 class="text-secondary">Phone: 987610</h5>
+    </div>
+    <div class="col-4 ">
+      <div class="container text-center ">        
+        <div class="row">
+            {% for image in booking.booking_data.hotel.images.all|slice:":4" %}
+            <div class="col-6">
+                <div class="gallery_img">
+                    <figure><img src="/media/{{image.images}}" alt="#" /></figure>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

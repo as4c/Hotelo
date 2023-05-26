@@ -1,0 +1,137 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+  <div>
+    <h1>Book a room at {{ hotel.name }}</h1>
+
+    {{form.as_p}}
+    <!-- <div class="modal-body">
+      <form method="post" id="hotel-booking-form" action="{% url 'home:booking_detail' pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="uid" id="uid" value="{{hotels.uid}}">
+          <div>
+              <label for="">Check in</label>
+              <input type="date" id="check-in" name="check-in" value="{{form.start_date}}">
+              
+          </div>
+          <div>
+              <label for="">Check Out</label>
+              <input type="date" name="check-out" id="check-out" value="{{form.end_date}}">
+             
+          </div>
+          <div>
+              <label for="">Room Type</label>
+              <select class="form-select" id="room-variant" name="room-variant">
+                  {% for room_type in room_type %}
+                      <option value="{{ room_type }}">{{ room_type }}</option>
+                  {% endfor %}
+                  
+                  
+              </select>
+          </div>
+          <div>
+
+              <label for="">Room Count</label>
+              <input type="number" name="room-count" id="room-count" value="{{form.no_of_room}}">
+          </div>
+
+          <div>
+              <label for="">Booking Type</label>
+              <select class="form-select" id="booking-type" name="booking-type" >
+                  <option selected value="">Booking Type</option>
+                  <option value="{{form.booking_type}}" ></option>
+                  
+              </select>
+          </div>
+
+          <div>
+              <label for="">Total Person</label>
+              <input type="number" name="person-count" id="person-count" value="{{form.no_of_people}}">
+          </div>
+
+          <div>
+              <label for="person-detail">Person Detail</label>
+              <select name="person-detail" id="person-detail" value="{{form.customer_desc}}">
+                  
+                  <option > 1 adults, 0 child </option>
+                  <option > 1 adults, 1 child </option>
+                  <option> 2 adults, 0 child </option>
+                  <option > 2 adults, 1 child </option>
+                  <option> 2 adults, 2 child </option>
+                  <option > All Adults </option>
+                  <option > other</option>
+              </select>
+          </div>
+          <div>
+              <button type="submit" class="btn btn-warning"  >Book Now</button>
+          </div>
+
+      </form>
+  </div> -->
+  </div>
+  <div>
+    <!-- <div class="modal-body">
+      <form method="post" id="hotel-booking-form" action="{% url 'home:booking_detail' pk %}">
+          {% csrf_token %}
+          <input type="hidden" name="uid" id="uid" value="{{hotels.uid}}">
+          <div>
+              <label for="">Check in</label>
+              <input type="date" id="check-in" name="check-in" value="{{form.start_date}}">
+              
+          </div>
+          <div>
+              <label for="">Check Out</label>
+              <input type="date" name="check-out" id="check-out" value="{{form.end_date}}">
+             
+          </div>
+          <div>
+              <label for="">Room Type</label>
+              <select class="form-select" id="room-variant" name="room-variant">
+                  {% for room_type in room_type %}
+                      <option value="{{ room_type }}">{{ room_type }}</option>
+                  {% endfor %}
+                  
+                  
+              </select>
+          </div>
+          <div>
+
+              <label for="">Room Count</label>
+              <input type="number" name="room-count" id="room-count" value="{{form.no_of_room}}">
+          </div>
+
+          <div>
+              <label for="">Booking Type</label>
+              <select class="form-select" id="booking-type" name="booking-type" >
+                  <option selected value="">Booking Type</option>
+                  <option value="{{form.booking_type}}" ></option>
+                  
+              </select>
+          </div>
+
+          <div>
+              <label for="">Total Person</label>
+              <input type="number" name="person-count" id="person-count" value="{{form.no_of_people}}">
+          </div>
+
+          <div>
+              <label for="person-detail">Person Detail</label>
+              <select name="person-detail" id="person-detail" value="{{form.customer_desc}}">
+                  
+                  <option > 1 adults, 0 child </option>
+                  <option > 1 adults, 1 child </option>
+                  <option> 2 adults, 0 child </option>
+                  <option > 2 adults, 1 child </option>
+                  <option> 2 adults, 2 child </option>
+                  <option > All Adults </option>
+                  <option > other</option>
+              </select>
+          </div>
+          <div>
+              <button type="submit" class="btn btn-warning"  >Book Now</button>
+          </div>
+
+      </form>
+  </div> -->
+  </div>
+{% endblock %}

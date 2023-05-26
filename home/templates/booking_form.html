@@ -1,0 +1,92 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div class="container justify-content-center align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded">
+  <h2 class="text-secondary text-center">Book a Room at <span class="text-warning"> {{ hotel.hotel_name }}</span></h2>
+  {% include 'messages.html' %}
+  <hr>
+  <div class="row">
+    <div class="col-6">
+      <figure class="">
+        <figcaption class="blockquote text-danger">
+          *Please fill below<cite title="Source Title"> information carefully</cite>
+        </figcaption>
+      </figure>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="uid" id="uid" value="{{ hotel.uid }}">
+        <div class="form-group">
+          <label for="start_date">Start Date:</label>
+          <input type="date" name="start_date" id="start_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="end_date">End Date:</label>
+          <input type="date" name="end_date" id="end_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="room_type">Room Type:</label>
+          <select name="room_type" id="room_type" class="form-control" required>
+            {% for room_type in room_type %}
+            <option value="{{ room_type}}">{{ room_type }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="booking_type">Booking Type:</label>
+          <select name="booking_type" id="booking_type" class="form-control" required>
+            <option value="Pre Paid">Pre Paid</option>
+            <option value="Post Paid">Post Paid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="no_of_room">Number of Rooms:</label>
+          <input type="number" name="no_of_room" id="no_of_room" class="form-control" value="1" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="no_of_people">Total Person:</label>
+          <input type="number" name="no_of_people" id="no_of_people" class="form-control" value="1" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="customer_desc">Persons Details:</label>
+          <select name="customer_desc" id="customer_desc">
+            <option value="1 adults, 0 child">1 adults, 0 child</option>
+            <option value="1 adults, 1 child">1 adults, 1 child</option>
+            <option value="2 adults, 0 child">2 adults, 0 child</option>
+            <option value="2 adults, 1 child">2 adults, 1 child</option>
+            <option value="2 adults, 2 child">2 adults, 2 child</option>
+            <option value="All Adults">All Adults</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Book Now</button>
+
+      </form>
+    </div>
+    <div class="col-6">
+      <div class="container text-center ">
+        
+        <div class="row">
+            {% for image in hotel.images.all|slice:":4" %}
+            <div class="col-6">
+                <div class="gallery_img">
+                    <figure><img src="/media/{{image.images}}" alt="#" /></figure>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            <div class="ps-2">
+              <small class="">Rating: </small>
+              <small class="fa fa-star text-dark"></small>
+              <small class="fa fa-star text-dark"></small>
+              <small class="fa fa-star text-dark"></small>
+              <small class="fa fa-star text-dark"></small>
+              <small class="fa fa-star text-dark"></small>
+          </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

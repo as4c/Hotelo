@@ -1,0 +1,20 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<!-- search-card-result border-left -->
+<div class="container justify-content-center align-items-center shadow-lg mt-5 mb-5 bg-body-white rounded">
+    <div class=" pt-5">
+        <div class="text-center">
+            <h2 class=" text-warning p-3 "> Payment Successfull </h2>
+            <div style="margin: 3rem;">
+                <h5>Check Your  <a href="{% url 'payment:booking-history' %}" class="text-success">Booking </a></h5>
+            </div>
+            <div style="margin-bottom: 3rem;">
+
+                <a href="/" class="text-danger">Go To Home Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5" style="margin-top: 16rem !important;">...</div>
+{% endblock %}

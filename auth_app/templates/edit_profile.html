@@ -1,0 +1,15 @@
+{% extends "base2.html" %}
+
+{%  block content %}
+
+<div class="container mt-5 pt-5 col-6">
+    {%include "messages.html"%}
+
+    <form method="post">
+        {% csrf_token %}
+        {{user_form.as_p}}
+    </form>   
+</div>
+
+
+{% endblock %}

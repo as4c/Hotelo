@@ -4,13 +4,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+app_name  = 'home'
 urlpatterns = [
-    path('check_booking/' , check_booking),
-    path('', home , name='home'),
-    path('hotel-detail/<uid>/' , hotel_detail , name="hotel_detail"),
-    path('login/', login_page , name='login_page'),
-    path('register/', register_page , name='register_page'),
-
+    path('',home_page,name='home'),
+    path('search/',search_results,name='search'),
+    path('details/<str:uid>/', details , name='detail'),
+    path('check_avail/' , room_availability,name="check_room_avail"),
+    path('book-hotel/<str:uid>',booking,name='booking'),
+    path('booking-detail/<str:uid>/',bookingdetail,name='booking_detail'),
+    path('about-us/',AboutUs,name='about_us'),
+    path('contact-us/',ContactUs,name='contact_us'),
 ]
 
 if settings.DEBUG:

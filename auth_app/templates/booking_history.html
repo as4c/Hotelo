@@ -1,0 +1,33 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div
+  class="container justify-content-center pt-5 container align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded ">
+    <h3 class="text-secondary"> Your Booking History </h3>
+    <hr>
+    {% if data|length > 0%}
+      {% for data in data %}
+      <div class="row">        
+          <div class="col text-secondary">
+              <h5 class="text-secondary">Hotel : {{data.booking_data.hotel}}</h5>
+              <h6 class="text-secondary">Check In Date: {{data.booking_data.start_date}}</h6>
+              <h6 class="text-secondary">Check Out Date: {{data.booking_data.end_date}}</h6>
+              <h6 class="text-secondary">Amount Paid: {{data.amount}}</h6>
+              <h6 class="text-secondary">Booking Status:  {{data.booking_status}}</h6>           
+          </div>
+          <div class="col">
+              <a href="{% url 'booking_history_detail' data.uid %}" type="button" class="btn btn-dark">See Detail</a>
+          </div>            
+      </div>
+      {% endfor %}
+    {% else %}
+      <div>
+        <h4>you haven't booked room yet</h4>
+      </div>
+    {% endif %}
+    <hr>
+    
+  </div>
+</div>
+<div class="clearfix" style="margin-top: 10rem;"></div>
+{% endblock %}

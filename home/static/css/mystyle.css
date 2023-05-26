@@ -1,0 +1,267 @@
+/*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,400,600,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Baloo+Chettan&display=swap');
+
+/*****---------------------------------------- 1) font-family: 'Rajdhani', sans-serif;
+ 2) font-family: 'Poppins', sans-serif;
+ ----------------------------------------*****/
+
+
+/*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
+
+
+  /* .container{
+    background-image: linear-gradient(to right top, #300537, #5e0049, #8f0051, #c0004f, #eb1242);
+   
+  } */
+  /* body{
+    background-color: #362332;
+  } */
+  .date-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .date-input input {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .date-input span {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  .form-inline label {
+    font-weight: bold;
+  }
+
+  /*footer*/
+
+.col_white_amrc { color:#FFF;}
+footer { width:100%;  min-height:250px;;}
+.pt2 { padding-top:40px ; margin-bottom:20px ;}
+footer p { font-size:13px; padding-bottom:0px; margin-bottom:8px;}
+.mb10 { padding-bottom:15px ;}
+.footer_ul_amrc { margin:0px ; list-style-type:none ; font-size:14px; padding:0px 0px 10px 0px ; }
+.footer_ul_amrc li {padding:0px 0px 5px 0px;}
+.footer_ul_amrc li a{ color:#CCC;}
+.footer_ul_amrc li a:hover{ color:#fff; text-decoration:none;}
+.fleft { float:left;}
+.padding-right { padding-right:10px; }
+
+.footer_ul2_amrc {margin:0px; list-style-type:none; padding:0px;}
+.footer_ul2_amrc li p { display:table; }
+.footer_ul2_amrc li a:hover { text-decoration:none;}
+.footer_ul2_amrc li i { margin-top:5px;}
+
+.bottom_border { border-bottom:1px solid #323f45; padding-bottom:20px;}
+.foote_bottom_ul_amrc {
+	list-style-type:none;
+	padding:0px;
+	display:table;
+	margin-top: 10px;
+	margin-right: auto;
+	margin-bottom: 10px;
+	margin-left: auto;
+}
+.foote_bottom_ul_amrc li { display:inline;}
+.foote_bottom_ul_amrc li a { color:#999; margin:0 12px;}
+
+.social_footer_ul { display:table; margin:15px auto 0 auto; list-style-type:none;  }
+.social_footer_ul li { padding-left:20px; padding-top:10px; float:left; }
+.social_footer_ul li a { color:#CCC; border:1px solid #CCC; padding:8px;border-radius:50%;}
+.social_footer_ul li i {  width:20px; height:20px; text-align:center;}
+
+
+/* body{
+  margin-top:20px;
+  background:#eee;
+  } */
+  
+  .btn {
+      margin-bottom: 5px;
+  }
+  
+  .grid {
+      position: relative;
+      width: 100%;
+      background: #fff;
+      color: #666666;
+      border-radius: 2px;
+      margin-bottom: 25px;
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .grid .grid-body {
+      padding: 15px 20px 15px 20px;
+      font-size: 0.9em;
+      line-height: 1.9em;
+  }
+  
+  .search table tr td.rate {
+      color: #f39c12;
+      line-height: 50px;
+  }
+  
+  .search table tr:hover {
+      cursor: pointer;
+  }
+  
+  .search table tr td.image {
+    width: 50px;
+  }
+  
+  .search table tr td img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .search table tr td.rate {
+    color: #f39c12;
+    line-height: 50px;
+  }
+  
+  .search table tr td.price {
+    font-size: 1.5em;
+    line-height: 50px;
+  }
+  
+  .search #price1,
+  .search #price2 {
+    display: inline;
+    font-weight: 600;
+  }
+
+/* about hotel start */
+.about {
+  background-color: #fff;
+  padding-top: 85px;
+}
+
+.about .titlepage {
+  text-align: left;
+  padding-bottom: 0;
+  max-width: 443px;
+  width: 100%;
+  float: left;
+}
+
+.about .titlepage h2 {
+  margin-bottom: 35px;
+}
+
+.about .titlepage p {
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 28px;
+  padding-bottom: 35px;
+}
+
+.about_img {
+  margin-right: 40px;
+  overflow: hidden;
+}
+
+.about_img figure {
+  margin: 0;
+}
+
+.about_img figure img {
+  width: 100%;
+  transition: all .5s;
+}
+
+.about_img figure img:hover {
+  transform: scale(1.2);
+}
+
+.carousel-caption {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 43, .7);
+  z-index: 1;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+@media (max-width: 768px) {
+  #header-carousel .carousel-item {
+      position: relative;
+      min-height: 450px;
+  }
+  
+  #header-carousel .carousel-item img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+}
+
+.page-header {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.page-header-inner {
+  background: rgba(15, 23, 43, .7);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  color: var(--light);
+}
+
+.booking {
+  position: relative;
+  margin-top: -100px !important;
+  z-index: 1;
+}
+
+
+/** gallery  section **/
+
+.gallery {
+  padding-top: 60px;
+}
+
+.gallery .titlepage {
+  text-align: center;
+}
+
+.gallery .gallery_img {
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.gallery .gallery_img figure {
+  margin: 0;
+}
+
+.gallery .gallery_img figure img {
+  width: 100%;
+  transition: all .5s;
+}
+
+.gallery .gallery_img figure img:hover {
+  transform: scale(1.2);
+}

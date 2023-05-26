@@ -1,0 +1,566 @@
+{% extends 'base2.html' %}
+{% block content %}
+{% load static %}
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/ajax.js' %}"></script>
+{% include "messages.html" %}
+<!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container ">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h6 class="section-title text-start text-warning text-uppercase">About Us</h6>
+                <h1 class="mb-4">Welcome to <span class="text-warning text-uppercase">{{hotels.hotel_name}}</span>
+                </h1>
+                <p class="mb-4">{{hotels.hotel_description}}</p>
+                <div class="row g-3 pb-4">
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-hotel fa-2x text-dark mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">{{hotels.total_room}}</h2>
+                                <p class="mb-0">Rooms</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-users-cog fa-2x text-dark mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">1{{hotels.total_staffs}}</h2>
+                                <p class="mb-0">Staffs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
+                        <div class="border rounded p-1">
+                            <div class="border rounded text-center p-4">
+                                <i class="fa fa-users fa-2x text-dark mb-2"></i>
+                                <h2 class="mb-1" data-toggle="counter-up">{{hotels.total_client}}</h2>
+                                <p class="mb-0">Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-dark py-3 px-5 mt-2" href="">Explore More</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    {% for image in hotels.images.all|slice:":4" %}
+
+                    <div class="col-6 text-end">
+                        <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s"
+                            src="/media/{{image.images}}" style="margin-top: 25%;">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<div class="container-fluid booking mt-5 pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container" >
+        <div class="bg-dark shadow" style="padding: 35px;">
+            <form method="POST" id="checking-form" >
+                {% csrf_token %}
+                <div class="row g-2">
+                    <input type="hidden" name="uid" id="uid" value="{{ hotels.uid }}">
+                    <div class="col-md-10">
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <div class="date" id="date1" data-target-input="nearest">
+                                    <input type="text" name="check_in" id="checkin"
+                                        class="form-control datetimepicker-input" placeholder="Check in"
+                                        data-target="#date1" data-toggle="datetimepicker" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="date" id="date2" data-target-input="nearest">
+                                    <input type="text" name="check_out" id="checkout"
+                                        class="form-control datetimepicker-input" placeholder="Check out"
+                                        data-target="#date2" data-toggle="datetimepicker" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="room_count" name="room_count">
+                                    <option selected>Room Count</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="room_type" name="room_type">
+
+                                    <option selected>Room Type</option>
+                                    {% for room in room_type %}
+                                    <option value="{{room}}">{{room}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button class="check-availability-btn btn btn-dark w-100">Check Availability</button>
+                        
+                        <!-- <button type="submit" class="book-now-btn  btn btn-warning w-100" style="display:none;"
+                        >Book Now</button>
+                         -->
+                        <div id="error-msg" style="display:none; color:red;"></div>
+                    </div>
+                </div>
+            </form>
+            {% if request.user.is_authenticated %}
+            <div style="display: none; text-align: center; color: white;" id="booking-form">
+                <h3 class="text-white">Rooms Are Available</h3>
+                <form action="{% url 'home:booking' hotels.uid%}">
+                    <button type="submit" class="btn btn-warning  book-now-btn">Book Now</button>
+                </form>
+            </div>
+            {% else %}
+            <div style="display: none; text-align: center; color: white;" id="booking-form">
+                <h3 class="text-white">You're not Logged In <a class="btn btn-dark" href="{% url 'signin' %}">Login Now</a>
+
+                </h3>
+                
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+<!-- Booking End -->
+
+<!-- Room Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
+            <h1 class="mb-5">Explore Our <span class="text-warning text-uppercase">Rooms</span></h1>
+        </div>
+        <div class="row g-4">
+            {% for room in room %}
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="{% static 'detail/img/room-2.jpg' %}" alt="room images">
+                        <small
+                            class="position-absolute start-0 top-100 translate-middle-y bg-dark text-white rounded py-1 px-3 ms-4">${{room.price}}/night</small>
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">{{room.rooms_type.type}}</h5>
+                            <div class="ps-2">
+                                <small class="fa fa-star text-dark"></small>
+                                <small class="fa fa-star text-dark"></small>
+                                <small class="fa fa-star text-dark"></small>
+                                <small class="fa fa-star text-dark"></small>
+                                <small class="fa fa-star text-dark"></small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bed text-dark me-2"></i>3
+                                Bed</small>
+                            <small class="border-end me-3 pe-3"><i class="fa fa-bath text-dark me-2"></i>2
+                                Bath</small>
+                            <small><i class="fa fa-wifi text-dark me-2"></i>Wifi</small>
+                        </div>
+                        <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem
+                            sed diam stet diam sed stet lorem.</p>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="">View Detail</a>
+                            <button class="check-availability-btn  btn btn-sm btn-dark rounded py-2 px-4">Check
+                                Availability</button>
+                            <button class="book-now-btn btn btn-warning btn-sm rounded py-2 px-4" style="display:none;"
+                                data-bs-toggle="modal" data-bs-target="#book-now-modal">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+<!-- Room End -->
+
+<!-- Video Start -->
+<div class="container-xxl py-5 px-0 wow zoomIn" data-wow-delay="0.1s">
+    <div class="row g-0">
+        <div class="col-md-6 bg-dark d-flex align-items-center">
+            <div class="p-5">
+                <h6 class="section-title text-start text-white text-uppercase mb-3">Luxury Living</h6>
+                <h1 class="text-white mb-4">Discover A Brand Luxurious Hotel</h1>
+                <p class="text-white mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
+                    amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna
+                    dolore erat amet</p>
+                <a href="" class="btn btn-warning py-md-3 px-md-5 me-3">Our Rooms</a>
+                <a href="" class="btn btn-light py-md-3 px-md-5">Book A Room</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="video">
+                <button type="button" class="btn-play" data-bs-toggle="modal"
+                    data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="ratio ratio-16x9">
+                    <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
+                        allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Video Start -->
+
+
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-warning text-uppercase">Our Services</h6>
+            <h1 class="mb-5">Explore Our <span class="text-warning text-uppercase">Services</span></h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-hotel fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Rooms & Appartment</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed
+                        diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-utensils fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Food & Restaurant</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed
+                        diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-spa fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Spa & Fitness</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed
+                        diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-swimmer fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Sports & Gaming</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed
+                        diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-glass-cheers fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">Event & Party</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed
+                        diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                <a class="service-item rounded" href="">
+                    <div class="service-icon bg-transparent border rounded p-1">
+                        <div class="w-100 h-100 border rounded d-flex align-items-center justify-content-center">
+                            <i class="fa fa-dumbbell fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                    <h5 class="mb-3">GYM & Yoga</h5>
+                    <p class="text-body mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed
+                        diam stet diam sed stet lorem.</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
+<!-- Galary Start-->
+<div class="gallery">
+    <div class="container text-center ">
+        <h1 class="mb-5">Explore Our <span class="text-warning text-uppercase">Galary</span></h1>
+        <div class="row">
+            {% for image in hotels.images.all|slice:":12" %}
+            <div class="col-md-3 col-sm-6">
+                <div class="gallery_img">
+                    <figure><img src="/media/{{image.images}}" alt="#" /></figure>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
+<!-- end gallery -->
+
+
+<!-- Testimonial Start -->
+<div class="container-xxl testimonial my-5 py-5 wow zoomIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="owl-carousel testimonial-carousel py-5">
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam
+                    stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="{% static 'detail/img/testimonial-1.jpg' %}"
+                        style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam
+                    stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="{% static 'detail/img/testimonial-2.jpg' %}"
+                        style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
+                <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam
+                    stet. Est stet ea lorem amet est kasd kasd et erat magna eos</p>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid flex-shrink-0 rounded" src="{% static 'detail/img/testimonial-3.jpg' %}"
+                        style="width: 45px; height: 45px;">
+                    <div class="ps-3">
+                        <h6 class="fw-bold mb-1">Client Name</h6>
+                        <small>Profession</small>
+                    </div>
+                </div>
+                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+
+
+<!-- Newsletter Start -->
+<div class="container newsletter mt-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 border rounded p-1">
+            <div class="border rounded text-center p-1">
+                <div class="bg-white rounded text-center p-5">
+                    <h4 class="mb-4">Please Give Feedback to Our <span class="text-primary text-uppercase">Hotel
+                            Services</span></h4>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your name">
+                        <textarea class="form-control w-100 py-3 ps-4 pe-5" name="" id="" cols="30" rows="10"
+                            placeholder="Write Feedback or Experience"></textarea>
+                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Write rating(1 to 10)">
+                        <button type="button" class="btn btn-primary py-2 px-3 mt-2 me-2">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Booking Bootstrap Modal -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-dark btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    if (typeof jQuery == 'undefined') {
+        console.log('jQuery is not loaded');
+    } else {
+        console.log('jQuery is loaded');
+    }
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        // Add click event listener to "Check Availability" button
+        $(".check-availability-btn").click(function (e) {
+            console.log("check availability")
+            e.preventDefault();
+            // Get the hotel, start date, end date, and room count values from the form (replace "..." with your code)
+            var pathname = window.location.pathname;
+            var parts = pathname.split('/');
+            var uid = parts[2];
+            var hotelId = uid
+           
+            var startDate = $('#checkin').val();
+            var endDate = $('#checkout').val();
+            var rooms = $('#room_count').val();
+            var roomType = $('#room_type').val();
+           
+            // Make an AJAX request to the backend "check_availability" function
+            $.ajax({
+                type: "POST",
+                url: '/check_avail/',
+                data: {
+                    "uid": hotelId,
+                    "check_in": startDate,
+                    "check_out": endDate,
+                    "room_count": rooms,
+                    "room_type": roomType,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                dataType: "json",
+                success: function (response) {
+                    
+                    if (response["available"]) {
+                        // Show the "Book Now" button
+                        $("#booking-form").show();
+                        $(".book-now-btn").show();
+                        $("#checking-form").hide()
+                        $(".check-availability-btn").hide();
+                        // Hide the error message (if displayed)
+                        alert(response['message'])
+                        $("#error-msg").hide();
+                    } else {
+                        // Hide the "Book Now" button
+                        $(".book-now-btn").hide();
+                        // Show the error message
+                        $("#error-msg").text("Sorry, there are not enough available rooms for the selected date range and room count.").show();
+                    }
+                    $('#checkin').val('');
+                    $('#checkout').val('');
+                    $('#room_count').val('');
+                    $('#room_type').val('');
+                },
+                error: function (xhr, status, error) {
+                    // Display an error message
+                    $("#error-msg").text("An error occurred while checking room availability. Please try again later.").show();
+                    $('#checkin').val('');
+                    $('#checkout').val('');
+                    $('#room_count').val('');
+                    $('#room_type').val('');
+                }
+            });
+        });
+        
+        $("#book-now").click(function (e) {
+            console.log("Book Now")
+            e.preventDefault();
+            // Get the hotel, start date, end date, and room count values from the form (replace "..." with your code)
+            var pathname = window.location.pathname;
+            console.log(pathname)
+            var parts = pathname.split('/');
+            console.log(parts[1])
+            var uid = parts[2];
+            var hotelId = uid
+            var startDate = $('#check-in').val();
+            var endDate = $('#check-out').val();
+            var rooms = $('#room-count').val();
+            var roomType = $('#room-variant').val();
+         
+            var bookingType = $('#booking-type').val();
+           
+            var personCount = $('#person-count').val();
+            var personDetail = $('#person-detail').val();
+           
+            $.ajax({
+                type: "POST",
+                // url: '/book-now/',
+                data: {
+                    "uid": hotelId,
+                    "check_in": startDate,
+                    "check_out": endDate,
+                    "room_count": rooms,
+                    "room_type": roomType,
+                    "booking_type": bookingType,
+                    "person_count": personCount,
+                    "person_detail": personDetail,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                dataType: "json",
+                success: function (response) {
+                    console.log("response", response)
+                    if (response["error"]) {
+                        // Show the error message
+                        $("#error-msg").text(response["error"]).show();
+                    } else {
+                        // Redirect to the booking detail page
+                        window.location.href = window.location.host+ '/booking-detail/' + response['uid'] + "/";
+                    }
+                
+                    // Clear the form inputs
+                    $('#check-in').val('');
+                    $('#check-out').val('');
+                    $('#room-count').val('');
+                    $('#room_type').val('');
+                    $('#booking-type').val('');
+                    $('#person-count').val('');
+                    $('#person-detail').val('');
+                },
+                error: function (xhr, status, error) {
+                    // Display an error message
+                    $("#error-msg").text("Something Went Wrong!!").show();
+
+                }
+            });
+
+        });
+
+
+    });
+</script>
+
+{% endblock %}

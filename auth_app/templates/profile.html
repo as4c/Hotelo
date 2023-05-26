@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+<div
+  class="container display-flex justify-content-center pt-5 container align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded text-center">
+
+  <h3 class="text-secondary "> Profile </h3>
+  <hr>
+    {% if user.profile_image %}
+    <div class="rounded-circle overflow-hidden mx-auto d-block border border-secondary"
+      style="width: 150px; height: 150px;">
+      <img src="{{ user.profile_image.url }}" alt="User Profile image" class="w-100 h-100">
+    </div>
+    {% else %}
+    <div class="rounded-circle overflow-hidden mx-auto d-block border border-secondary"
+      style="width: 150px; height: 150px;">
+      <img src="{% static 'images/testimonial-left.jpg' %}" alt="Default Profile image" class="w-100 h-100">
+    </div>
+    {% endif %}
+ 
+ 
+    <h4 class="text-secondary">Name: {{user.name}}</h4>
+    <h5 class="text-secondary">Email: {{user.email}}</h5>
+    <h5 class="text-secondary">Phone: {{user.phone}}</h5>
+    <h5 class="text-secondary">Age: {{user.age}}</h5>
+    <h5 class="text-secondary">Gender: {{user.gender}}</h5>
+    <h5 class="text-secondary">Address: {{user.address}}</h5>
+ 
+
+
+</div>
+{% endblock %}

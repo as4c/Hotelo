@@ -1,0 +1,19 @@
+{% extends "base2.html" %}
+
+{%  block content %}
+
+<div class="container  justify-content-center pt-5 container align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded">
+    <h3 class="text-center text-secondary">Register</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {%include "messages.html"%}
+        {{form.as_p}}
+        <input type="submit" value="Register" class="btn btn-dark">
+      </form>
+      <div>
+        <p>Already Have an Account <a href="{% url 'signin' %}" class="">Login</a></p>
+      </div>
+</div>
+
+
+{% endblock %}

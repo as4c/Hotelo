@@ -1,0 +1,36 @@
+{% extends "base2.html" %}
+
+{% block content %}
+
+<div
+  class="container  justify-content-center pt-5 container align-items-center pt-5 shadow-lg p-3 mt-5 mb-5 bg-body-white rounded">
+
+  {%include "messages.html"%}
+  <h3 class="text-center">Login</h3>
+  <form method="post">
+    {% csrf_token %}
+    <div class="text-center">
+      <div>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email">
+      </div>
+
+      </br>
+      <div>
+        <label for="password">Password:</label>
+        <input type="text" name="password" id="password">
+      </div>
+
+      <button type="submit" class="btn btn-dark m-2">Login</button>
+    </div>
+   
+  </form>
+  <hr>
+  <div class="text-center">
+    <p>create new account <a href="{% url 'signup' %}" class="">Signup</a> </p>
+  </div>
+
+</div>
+
+
+{% endblock %}

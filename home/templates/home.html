@@ -85,9 +85,9 @@
                                 <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
                                     <option value="">Recommended</option>
                                     <option  value="ASC">Lowest to Highest Price</option>
-                                    <!-- {% if sort_by == "ASC" %} selected {% endif %} -->
+                                   {% if sort_by == "ASC" %} selected {% endif %} 
                                     <option  value="DSC">Highest to Lowest Price</option>
-                                    <!-- {% if sort_by == "DSC" %} selected {% endif %} -->
+                                     {% if sort_by == "DSC" %} selected {% endif %} 
                                 </select>
                             </div>
                         </div>
@@ -122,8 +122,6 @@
                 {% for hotels_obj in hotels_objs %}
                 <div class="row search-card-result">
 
-
-
                     <div class="col-md-3">
 
                         <a href="/hotel-detail/{{hotels_obj.uid}}">
@@ -134,7 +132,9 @@
 
                     <div class="col-md-5">
 
-                        <h5>{{hotels_obj.hotel_name}}</h5>
+                        <a href="/hotel-detail/{{hotels_obj.uid}}">
+                            <h5>{{hotels_obj.hotel_name}}</h5>
+                        </a>
                         <h6>{{hotels_obj.hotel_place}}</h6>
 
                         <p>

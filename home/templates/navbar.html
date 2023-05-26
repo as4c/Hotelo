@@ -1,0 +1,63 @@
+{% load static %}
+
+<div class="header__nav__option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="header__logo">
+                    <a href="{% url 'home:home' %}"><img src="{% static 'images/motelo-logo.png' %}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="header__nav">
+                    <nav class="header__menu">
+                        <ul class="menu__class " style=" font-weight:20px">
+                            <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
+
+                            <li><a href="#" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'home:about_us' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">About Us</a></li>   
+
+                                    <li><a href="{% url 'home:about_us' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Blogs</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'home:about_us' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">News</a></li>
+                            
+                            <li><a href="{% url 'home:contact_us' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Contact Us</a></li>
+                            {% if request.user.is_authenticated %} 
+                           
+                            <li><a href="#"><button class="btn btn-dark text-warning" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">{{request.user}}</button></a>
+                                <ul class="dropdown">
+                                    <li><a href="{% url 'profile' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover me-auto">Profile</a></li>                                      
+                                    <li><a href="{% url 'payment:booking-history' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Bookings</a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li><a href="{% url 'signin' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Log In</a></li>
+                            <li><a href="{% url 'signup' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Register</a></li>
+                            {% endif %}                            
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open">
+            <span class="fa fa-bars"></span>
+        </div> 
+    </div>
+</div>
+
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+      <h4 class="offcanvas-title" id="offcanvasScrollingLabel">{{request.user}} </h4>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <li class="nav-link"><a href="{% url 'profile' %}" >Profile</a></li>
+        <li><a href="{% url 'payment:booking-history' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Bookings</a></li>
+        <li><a href="{% url 'signout' %}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Logout</a></li>
+        
+    </div>
+  </div>
